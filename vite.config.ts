@@ -77,6 +77,12 @@ function prerenderMeta(): Plugin {
         .map((r) => `  <url><loc>${SITE.url}${r.path === "/" ? "" : r.path}</loc></url>`)
         .join("\n")}\n</urlset>\n`;
       writeFileSync(join(dist, "sitemap.xml"), sitemap);
+      // Vercel serves 404.html for any address that doesn't exist; the app then shows its own "Nothing here" page
+      const notFound = template.replace(
+        /<title>[\s\S]*?<\/title>\s*<!--meta-->/,
+        `<title>Page not found | ${esc(SITE.name)}</title>\n    <meta name="robots" content="noindex" />`,
+      );
+      writeFileSync(join(dist, "404.html"), notFound);
     },
   };
 }
