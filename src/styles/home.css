@@ -27,7 +27,7 @@ body.is-home {
 .home-hi {
   display: flex;
   align-items: flex-end;
-  gap: 14px;
+  gap: 2px; /* the comma sits right after the handwritten Hi */
   margin: 0 0 18px;
   font-size: clamp(30px, 2.8vw, 44px);
   font-weight: 600;

@@ -172,7 +172,7 @@ export function Home() {
         <section ref={hello} className={`home-hello ${writing ? "is-writing" : ""}`} aria-labelledby="home-title">
           <p className="home-hi" aria-label="Hi, I'm Sah">
             <Hand word="hi" />
-            <span aria-hidden="true">I'm Sah</span>
+            <span aria-hidden="true">, I'm Sah</span>
           </p>
           <h1 id="home-title" aria-label={TITLE_START + TITLE_MARK}>
             {text(TITLE_START)}
