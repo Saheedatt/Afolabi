@@ -49,7 +49,7 @@ const TOOLS = [
   { name: "Google Analytics & PostHog", use: "Traffic analysis, funnels and user behaviour" },
   { name: "Buffer", use: "Content scheduling and management" },
   { name: "Google Workspace & Microsoft Office", use: "Planning, documentation, communication and reporting" },
-  { name: "AI-assisted workflows", use: "Research, analysis, creative production and marketing systems." },
+  { name: "AI-assisted workflows", use: "Claude Code and Remotion for video production; Claude for research and analysis." },
 ];
 
 export function About() {

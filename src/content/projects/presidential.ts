@@ -45,7 +45,7 @@ export const presidential: Project = {
           type: "text",
           body: [
             "Presidential was a new game with no established social audience or marketing presence to build on. I was responsible for developing that presence while figuring out how to introduce the game to people who might never have played it before.",
-            "The game sits somewhere between strategy, politics and multiplayer gaming. Showing people the game, or telling them it was free, wasn't going to be enough. The content had to make the mechanics interesting, show what made the game different and get people curious enough to try it.",
+            "The game sits somewhere between strategy, politics and multiplayer gaming. The content had to make the mechanics interesting, show what made the game different and get people curious enough to try it.",
             "I was also new to gaming. So instead of guessing what works for gaming audiences, I studied similar games and their ads, spent time in their communities, and asked the founders about the product, the players they wanted and what we were aiming for.",
           ],
         },
@@ -201,7 +201,7 @@ export const presidential: Project = {
           body: [
             "In two months the game went from no marketing presence to an active presence on six platforms, a subreddit where players posted their own questions, recurring content formats, tested paid channels and a measurement plan the team could keep using.",
             "Organic content reached people outside the existing audience: TikTok through search, Instagram through non-followers, and Reddit through conversations players started themselves.",
-            "Not everything worked. Some creative missed, and not everything could be measured. The lesson I'd take into any early-stage product: fix tracking before you scale spend, or you end up paying for numbers you can't read.",
+            "Not everything worked. Some creative missed, and not everything could be measured. The lesson I'd take into any early-stage product: fix tracking before increasing spend.",
           ],
         },
       ],

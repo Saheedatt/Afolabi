@@ -5,7 +5,7 @@ export const fazzyD: Project = {
   title: "FazzyD",
   summary: "My brother's Lagos clothing label, from its first Instagram sale to more than 500.",
   intro:
-    "FazzyD is my brother's clothing label. We started in 2022 with almost no money and one idea: he had to be online to be seen. This is where I learned the difference between attention and sales.",
+    "FazzyD is my brother's clothing label. We started in 2022 with almost no money, knowing he had to be online to be found. This is where I learned the difference between attention and sales.",
   categories: ["Content Strategy", "Campaigns", "Social Media"],
   year: "2022 to 2025",
   client: "FazzyD (family brand)",
@@ -49,7 +49,7 @@ export const fazzyD: Project = {
       blocks: [
         {
           type: "lead",
-          body: "Our first viral video got about 100 likes and no sales.",
+          body: "Our first video to take off got about 100 likes and no sales.",
         },
         {
           type: "text",

@@ -38,7 +38,7 @@ export const cyclewithtayo: Project = {
           type: "text",
           body: [
             "Tayo was preparing for his second Friends for Life Bike Rally, a six-day, 600km ride from Toronto to Montreal raising money for the Toronto People With AIDS Foundation. When I took over his Instagram in June, the fundraiser stood at roughly CA$500, and most of his 183 followers already knew about his previous ride and took part in the fundraising the year before.",
-            "We had a fundraising target to reach, a ride to document and a story that needed a new angle. Retelling what people already knew about Tayo wasn't going to be enough. People who had given last year needed a new reason to follow this ride and give again.",
+            "People who had given last year needed a new reason to follow this ride and give again.",
           ],
         },
         {
