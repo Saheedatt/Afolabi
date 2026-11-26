@@ -2,9 +2,10 @@ import { Link, NavLink } from "react-router";
 import { Hand, type HandWord } from "./Hand";
 import { setPalette, usePalette } from "../lib/palette";
 
+// Physio isn't in the menu: the site leads with marketing. The Physio page is reached from About
+// ("I'm also a physiotherapist") and from HerPhysio on the Community role page.
 const LINKS: { to: string; word: HandWord; label: string }[] = [
   { to: "/work", word: "work", label: "Work" },
-  { to: "/physio", word: "physio", label: "Physiotherapy" },
   { to: "/about", word: "about", label: "About" },
   { to: "/contact", word: "contact", label: "Contact" },
 ];
