@@ -10,6 +10,7 @@
   /* Paper: black marker on notebook paper, with highlighter pens */
   --bg: #fbfbf7;
   --ruled: #dfe7f3;
+  --ruled-soft: #eaeff7; /* inner pages: the notebook lines stay in the background */
   --margin: #f2b8b8;
   --ink: #151515;
   --ink-60: rgba(21, 21, 21, 0.62);
@@ -88,7 +89,8 @@ body {
   font-family: var(--sans);
 }
 
-/* every page on paper is a ruled notebook page with a red margin line; blue has the weave */
+/* every page on paper is a ruled notebook page with a red margin line; blue has the weave.
+   Inner pages use fainter rules so the content reads first; Home keeps the full-strength page. */
 [data-palette="marker"] body {
   background-image:
     linear-gradient(
@@ -97,7 +99,7 @@ body {
       var(--margin) calc(var(--margin-x) - 1px) var(--margin-x),
       transparent var(--margin-x)
     ),
-    repeating-linear-gradient(transparent 0 33px, var(--ruled) 33px 34px);
+    repeating-linear-gradient(transparent 0 33px, var(--ruled-soft) 33px 34px);
 }
 [data-palette="shirt"] body {
   background-image:
@@ -126,7 +128,7 @@ body {
     background-image: repeating-linear-gradient(transparent 0 29px, var(--ruled) 29px 30px);
   }
   [data-palette="marker"] body:not(.is-home) {
-    background-image: repeating-linear-gradient(transparent 0 29px, var(--ruled) 29px 30px);
+    background-image: repeating-linear-gradient(transparent 0 29px, var(--ruled-soft) 29px 30px);
   }
 }
 
@@ -280,8 +282,28 @@ body {
     padding-left: 16px;
   }
   .topbar {
-    flex-wrap: wrap;
-    row-gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "logo mode"
+      "nav nav";
+    align-items: center;
+    row-gap: 12px;
+  }
+  .topbar-logo {
+    grid-area: logo;
+  }
+  .topbar-right {
+    display: contents;
+  }
+  .topbar-nav {
+    grid-area: nav;
+  }
+  .topbar-nav ul {
+    justify-content: space-between;
+  }
+  .mode {
+    grid-area: mode;
   }
   .topbar-logo .hw {
     width: 140px;

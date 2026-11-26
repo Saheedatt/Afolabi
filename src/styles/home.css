@@ -244,6 +244,14 @@ body.is-home {
 
 /* phone: still one screen */
 @media (max-width: 820px) {
+  /* phones: never cut anything off; on a tall enough screen it still fits without scrolling */
+  body.is-home {
+    overflow: auto;
+  }
+  .home {
+    height: auto;
+    min-height: 100dvh;
+  }
   .home,
   [data-palette="shirt"] .home {
     padding: 0 16px 12px;
@@ -308,7 +316,7 @@ body.is-home {
     transform: rotate(-1deg);
   }
   .home-roles {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px 10px;

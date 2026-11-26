@@ -171,7 +171,6 @@ button.bit::after {
 .skills li {
   padding: 9px 0;
   font-size: 16px;
-  border-bottom: 1.5px dashed color-mix(in srgb, var(--ink) 30%, transparent);
 }
 
 .tools {
@@ -181,10 +180,9 @@ button.bit::after {
 }
 .tools th,
 .tools td {
-  padding: 14px 0;
+  padding: 12px 0;
   text-align: left;
   vertical-align: top;
-  border-bottom: 1.5px dashed color-mix(in srgb, var(--ink) 30%, transparent);
 }
 .tools thead th {
   padding-top: 0;
@@ -511,6 +509,7 @@ button.bit::after {
   .tools td {
     display: block;
     padding-top: 0;
+    padding-bottom: 20px;
   }
   .panel {
     align-items: flex-end;
