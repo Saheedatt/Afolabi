@@ -12,7 +12,7 @@ export const SITE = {
   /** The file name visitors get when they download the CV. */
   cvDownloadName: "Saheedat Afolabi CV.pdf",
   /** The 1200x630 picture shown when a page without its own cover is shared (LinkedIn, WhatsApp, X). */
-  ogImage: "/og-image.png",
+  ogImage: "/share.png",
   /**
    * The Lab is hidden while its first entry is rewritten. Set to true to bring back the menu link,
    * the /lab pages, their sitemap entries and the link on About. The content stays in src/content/lab.
