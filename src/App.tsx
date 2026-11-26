@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router";
-import { Nav } from "./components/Nav";
-import { Footer } from "./components/Footer";
+import { TopBar } from "./components/TopBar";
 import { Home } from "./pages/Home";
 import { Work } from "./pages/Work";
+import { Role } from "./pages/Role";
+import { Physio } from "./pages/Physio";
+import { Bits } from "./pages/Bits";
+import { Timeline } from "./pages/Timeline";
 import { CaseStudy } from "./pages/CaseStudy";
 import { About } from "./pages/About";
 import { Lab } from "./pages/Lab";
@@ -37,6 +40,8 @@ function FocusManager() {
 
 export default function App() {
   const location = useLocation();
+  // home and Bits & pieces are one-screen pages that draw their own top bar
+  const home = location.pathname === "/" || location.pathname === "/bits";
   return (
     <>
       <a href="#main" className="skip-link">
@@ -44,12 +49,20 @@ export default function App() {
       </a>
       <ScrollManager />
       <FocusManager />
-      <Nav />
+      {!home && (
+        <div className="topbar-wrap">
+          <TopBar />
+        </div>
+      )}
       <main id="main" tabIndex={-1} className="view" key={location.pathname}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/work" element={<Work />} />
+          <Route path="/work/role/:role" element={<Role />} />
           <Route path="/work/:slug" element={<CaseStudy />} />
+          <Route path="/physio" element={<Physio />} />
+          <Route path="/bits" element={<Bits />} />
+          <Route path="/timeline" element={<Timeline />} />
           <Route path="/about" element={<About />} />
           {SITE.labEnabled && <Route path="/lab" element={<Lab />} />}
           {SITE.labEnabled && <Route path="/lab/:slug" element={<LabEntry />} />}
@@ -57,8 +70,6 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {/* on the home page the results band sits directly on the footer */}
-      <Footer flush={location.pathname === "/"} />
     </>
   );
 }

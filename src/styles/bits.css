@@ -1,0 +1,268 @@
+/* Bits & pieces: a pile thrown onto one notebook page on laptops; a scrapbook on phones. */
+body.is-board {
+  overflow: hidden;
+}
+.bits {
+  position: relative;
+  height: 100dvh;
+}
+.bits-top {
+  position: relative;
+  z-index: 60;
+  pointer-events: none;
+}
+.bits-top .topbar > * {
+  pointer-events: auto;
+}
+.bits-top .mode {
+  background: var(--bg);
+}
+.bits-board {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.bits-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.bits-title h1 {
+  margin: 0;
+  font-size: clamp(48px, 6.4vw, 104px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+.bits-title h1 span {
+  padding: 0 0.04em;
+  background: linear-gradient(transparent 56%, var(--h2) 56% 92%, transparent 92%);
+}
+[data-palette="shirt"] .bits-title h1 span {
+  padding: 0 0.1em;
+  background: var(--h2);
+  color: var(--on-h);
+}
+.bits-title p {
+  margin-top: 14px;
+  color: var(--ink-60);
+}
+.hint-phone {
+  display: none;
+}
+.bits-shuffle {
+  margin-top: 14px;
+  padding: 7px 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+  pointer-events: auto;
+}
+.bits-shuffle:hover {
+  background: var(--h1);
+  border-color: var(--h1);
+  color: var(--on-h);
+}
+
+.bit-item {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transform: rotate(var(--tilt));
+  transition:
+    transform 900ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 200ms;
+  will-change: transform;
+}
+.bit-item.dragging {
+  z-index: 40;
+  cursor: grabbing;
+  transition: none;
+}
+.bit-item.dragging .bit-card {
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.3);
+}
+.bit-card {
+  position: relative;
+  padding: 8px 8px 30px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+.bit-card img {
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+.bit-card figcaption {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 7px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.15;
+  color: var(--card-text);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.bit-card .tape {
+  top: -10px;
+  left: 50%;
+  width: 60px;
+  height: 20px;
+  transform: translateX(-50%) rotate(-4deg);
+}
+/* screenshots: a strip of paper with the caption underneath */
+.bit-item.is-shot .bit-card {
+  padding: 6px;
+}
+.bit-item.is-shot figcaption {
+  position: static;
+  margin-top: 6px;
+}
+.bit-item.is-video .bit-card::after {
+  content: "\25B6";
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding-left: 3px;
+  border-radius: 50%;
+  background: #fff35c;
+  color: #151515;
+  font-size: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transform: translate(-50%, -50%);
+}
+
+/* the closer look */
+.bits-look {
+  max-width: min(92vw, 900px);
+  max-height: 92vh;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+.bits-look::backdrop {
+  background: rgba(15, 15, 15, 0.82);
+}
+.bits-look-card {
+  padding: 12px 12px 16px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  transform: rotate(-1deg);
+}
+.bits-look-card img,
+.bits-look-card video {
+  display: block;
+  max-width: 100%;
+  max-height: 78vh;
+  margin: 0 auto;
+}
+.bits-look-card p {
+  margin: 10px 2px 0;
+  font-size: 15px;
+  color: var(--card-text);
+}
+.bits-close {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  z-index: 1;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff35c;
+  color: #151515;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* phones: a scrolling scrapbook, two columns, pieces slide in from the sides */
+@media (max-width: 820px) {
+  body.is-board {
+    overflow: auto;
+  }
+  .bits {
+    height: auto;
+  }
+  .bits-board {
+    position: static;
+    overflow: visible;
+    padding: 26px 16px 60px;
+  }
+  .bits-title {
+    position: static;
+    margin-bottom: 26px;
+    text-align: left;
+    transform: none;
+  }
+  .bits-title h1 {
+    font-size: 52px;
+    white-space: normal;
+  }
+  .bits-shuffle,
+  .hint-laptop {
+    display: none;
+  }
+  .hint-phone {
+    display: inline;
+  }
+  .bits-pile {
+    columns: 2;
+    column-gap: 14px;
+  }
+  .bit-item {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: auto !important;
+    display: block;
+    margin: 0 0 18px;
+    break-inside: avoid;
+    cursor: pointer;
+    touch-action: auto;
+    opacity: 0;
+    transform: translateX(var(--from-x)) rotate(var(--tilt)) !important;
+    transition:
+      opacity 600ms,
+      transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .bit-item.in {
+    opacity: 1;
+    transform: rotate(var(--tilt)) !important;
+  }
+  .bit-card {
+    padding-bottom: 10px;
+  }
+  .bit-card figcaption {
+    position: static;
+    margin-top: 8px;
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bit-item {
+    transition: none !important;
+  }
+  .bit-item:not(.in) {
+    opacity: 1;
+  }
+}

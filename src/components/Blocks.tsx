@@ -1,32 +1,42 @@
+import type { CSSProperties } from "react";
 import type { Block, Section } from "../content/types";
-import { MetricList } from "./Metrics";
 import { Placeholder } from "./Placeholder";
-import { Figure, Gallery, Video } from "./Media";
+import { Gallery } from "./Media";
 
+/** The highlighter colours, used in turn for section titles and sticky notes. */
+const HIGHLIGHTS = ["--h1", "--h2", "--h3", "--h4", "--h5", "--h6"];
+
+/** Case-study content drawn as notebook pieces: sticky notes, taped photos, a checklist. */
 export function BlockView({ block }: { block: Block }) {
   switch (block.type) {
     case "text":
       return (
-        <div className="b-text">
+        <>
           {block.body.map((p, i) => (
-            <p key={i}>{p}</p>
+            <p key={i} className="nb-p reveal">
+              {p}
+            </p>
           ))}
-        </div>
+        </>
       );
     case "lead":
-      return <p className="b-lead serif">{block.body}</p>;
+      return <p className="nb-lead reveal">{block.body}</p>;
     case "subhead":
-      return <h3 className="b-subhead">{block.body}</h3>;
+      return <h3 className="nb-subhead reveal">{block.body}</h3>;
     case "list": {
       const Tag = block.numbered ? "ol" : "ul";
       return (
-        <Tag className={`b-list ${block.numbered ? "is-numbered" : ""}`}>
+        <Tag className={`nb-list ${block.numbered ? "is-numbered" : "is-check"}`}>
           {block.items.map((item, i) => (
-            <li key={i}>
-              {block.numbered && <span className="mono b-list-num">{String(i + 1).padStart(2, "0")}</span>}
+            <li key={i} className="reveal">
+              {block.numbered && (
+                <span className="nb-list-n" aria-hidden="true">
+                  {i + 1}
+                </span>
+              )}
               <div>
-                {item.title && <h4>{item.title}</h4>}
-                <p>{item.body}</p>
+                {item.title && <b>{item.title}</b>}
+                <span>{item.body}</span>
               </div>
             </li>
           ))}
@@ -34,60 +44,83 @@ export function BlockView({ block }: { block: Block }) {
       );
     }
     case "metrics":
-      return <MetricList items={block.items} />;
-    case "image":
       return (
-        <div className={`b-image ${block.wide ? "is-wide" : ""}`}>
-          <Figure image={block.image} />
+        <div className="nb-stats">
+          {block.items.map((m) => (
+            <div key={m.label} className="nb-stat reveal">
+              <b>{m.value}</b>
+              <span>{m.label}</span>
+              {m.note && <small>{m.note}</small>}
+              {m.status === "pending" && <small className="mono">Pending confirmation</small>}
+            </div>
+          ))}
         </div>
       );
+    case "image":
+      return (
+        <figure className={`nb-pic reveal from-right ${block.wide ? "is-wide" : ""}`}>
+          <span className="tape" aria-hidden="true" />
+          <img src={block.image.src} alt={block.image.alt} loading="lazy" decoding="async" />
+          {block.image.caption && <figcaption>{block.image.caption}</figcaption>}
+        </figure>
+      );
     case "gallery":
-      return <Gallery images={block.images} />;
+      return (
+        <div className="nb-gallery reveal">
+          <Gallery images={block.images} />
+        </div>
+      );
     case "videos":
       return (
-        <div className="b-videos">
+        <div className="nb-reel" role="list" aria-label="Videos">
           {block.videos.map((v) => (
-            <Video key={v.src} video={v} />
+            <figure key={v.src} className={`nb-phone ${v.vertical ? "" : "is-wide"}`} role="listitem">
+              <span className="tape" aria-hidden="true" />
+              <video src={v.src} poster={v.poster} controls preload="none" playsInline aria-label={v.caption} />
+              <figcaption>{v.caption}</figcaption>
+            </figure>
           ))}
         </div>
       );
     case "quote":
       return (
-        <blockquote className="b-quote">
-          <p className="serif">{block.text}</p>
+        <blockquote className="nb-quote reveal">
+          <p>{block.text}</p>
           <footer className="mono">{block.source}</footer>
         </blockquote>
       );
     case "compare":
       return (
-        <div className="b-compare">
+        <div className="nb-compare reveal">
           <div>
             <span className="mono">{block.before.label}</span>
-            <span className="b-compare-value">{block.before.value}</span>
+            <b>{block.before.value}</b>
           </div>
-          <span className="b-compare-arrow" aria-hidden="true" />
+          <span className="nb-compare-arrow" aria-hidden="true">
+            &rarr;
+          </span>
           <div className="is-after">
             <span className="mono">{block.after.label}</span>
-            <span className="b-compare-value">{block.after.value}</span>
+            <b>{block.after.value}</b>
           </div>
-          {block.note && <p className="b-compare-note mono">{block.note}</p>}
+          {block.note && <p className="nb-compare-note mono">{block.note}</p>}
         </div>
       );
     case "callout":
       return (
-        <div className="b-callout">
-          <p className="b-callout-title">{block.title}</p>
+        <div className="nb-note reveal">
+          <span className="tape" aria-hidden="true" />
+          <b>{block.title}</b>
           <p>{block.body}</p>
         </div>
       );
     case "links":
       return (
-        <ul className="b-links">
+        <ul className="nb-chips reveal">
           {block.links.map((l) => (
             <li key={l.href}>
               <a href={l.href} target="_blank" rel="noreferrer">
-                {l.label}
-                <span className="visually-hidden"> (opens in a new tab)</span>
+                {l.label} &#8599;<span className="visually-hidden"> (opens in a new tab)</span>
               </a>
             </li>
           ))}
@@ -100,16 +133,21 @@ export function BlockView({ block }: { block: Block }) {
 
 export function SectionView({ section, index }: { section: Section; index: number }) {
   return (
-    <section className="cs-section" aria-labelledby={`h-${section.id}`} id={section.id}>
-      <header className="cs-section-head">
+    <section
+      className="nb-section"
+      aria-labelledby={`h-${section.id}`}
+      id={section.id}
+      style={{ "--sc": `var(${HIGHLIGHTS[index % HIGHLIGHTS.length]})` } as CSSProperties}
+    >
+      <div className="nb-section-head">
         <span className="mono">{String(index + 1).padStart(2, "0")}</span>
-        <h2 id={`h-${section.id}`}>{section.title}</h2>
-      </header>
-      <div className="cs-section-body">
-        {section.blocks.map((b, i) => (
-          <BlockView key={i} block={b} />
-        ))}
+        <h2 id={`h-${section.id}`}>
+          <em>{section.title}</em>
+        </h2>
       </div>
+      {section.blocks.map((b, i) => (
+        <BlockView key={i} block={b} />
+      ))}
     </section>
   );
 }

@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { SITE } from "./src/content/site";
 import { PROJECTS } from "./src/content/projects";
 import { LAB } from "./src/content/lab";
+import { ROLES } from "./src/content/roles";
 
 interface RouteMeta {
   path: string;
@@ -17,7 +18,11 @@ function routes(): RouteMeta[] {
   return [
     { path: "/", title: `${SITE.name}, ${SITE.role}`, description: SITE.description },
     { path: "/work", title: `Work | ${SITE.name}`, description: "Case studies in growth marketing, social media and content strategy." },
+    ...ROLES.map((r) => ({ path: `/work/role/${r.slug}`, title: `${r.label} | ${SITE.name}`, description: `${r.label}: case studies and other work by ${SITE.name}.` })),
     ...PROJECTS.map((p) => ({ path: `/work/${p.slug}`, title: `${p.title} | ${SITE.name}`, description: p.summary, image: p.cover?.src })),
+    { path: "/timeline", title: `Timeline | ${SITE.name}`, description: `${SITE.name}'s full work history: marketing, community, physiotherapy and education.` },
+    { path: "/bits", title: `Bits & pieces | ${SITE.name}`, description: `Photos, screenshots and clips from ${SITE.name}'s life outside work.` },
+    { path: "/physio", title: `Physiotherapy | ${SITE.name}`, description: `${SITE.name} is also a physiotherapist: conditions she has helped manage and the units she has worked across.` },
     { path: "/about", title: `About | ${SITE.name}`, description: "How Saheedat Afolabi went from photographing her brother's clothes to marketing a game launch." },
     ...(SITE.labEnabled
       ? [

@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useMeta } from "../lib/useMeta";
 import { SITE } from "../content/site";
+import { CvLink } from "../components/CvLink";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
 
@@ -45,82 +46,89 @@ export function Contact() {
   }
 
   return (
-    <section className="contact wrap">
-      <header className="contact-head">
-        <p className="mono page-kicker">Contact</p>
-        <h1 className="page-title">
-          Let's <span className="serif">talk.</span>
-        </h1>
-        <p className="page-intro">Roles, freelance projects and collaborations. Email is the quickest way to reach me.</p>
-        <div className="contact-direct">
-          <a href={`mailto:${SITE.email}`} className="contact-email">
-            {SITE.email}
-          </a>
-          <div className="contact-actions mono">
-            <button type="button" onClick={copy}>
-              {copied ? "Copied" : "Copy email"}
-            </button>
-            <a href={SITE.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn<span className="visually-hidden"> (opens in a new tab)</span>
-            </a>
-          </div>
-          <p className="visually-hidden" aria-live="polite">
-            {copied ? "Email address copied" : ""}
-          </p>
-        </div>
-      </header>
+    <div className="page-wrap contact2">
+      <div className="contact2-grid">
+        <header className="contact2-head">
+          <p className="phead-kicker mono">Contact</p>
+          <h1 className="contact2-title">
+            Let's <mark>talk.</mark>
+          </h1>
+          <p className="phead-intro">Roles, freelance projects and collaborations. Email is the quickest way to reach me.</p>
 
-      <form className="contact-form" noValidate onSubmit={submit} aria-describedby="form-note">
-        <p id="form-note" className="mono form-note">
-          Sending opens your email app with the message ready to go.
-        </p>
-        <div className="field">
-          <label htmlFor="name">Name</label>
-          <input id="name" name="name" autoComplete="name" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-err" : undefined} />
-          {errors.name && (
-            <p id="name-err" className="field-error">
-              {errors.name}
+          <div className="contact2-card">
+            <span className="tape" aria-hidden="true" />
+            <p className="mono contact2-label">Email</p>
+            <a href={`mailto:${SITE.email}`} className="contact2-email">
+              {SITE.email}
+            </a>
+            <div className="contact2-actions mono">
+              <button type="button" onClick={copy}>
+                {copied ? "Copied" : "Copy email"}
+              </button>
+              <a href={SITE.linkedin} target="_blank" rel="noreferrer">
+                LinkedIn &#8599;<span className="visually-hidden"> (opens in a new tab)</span>
+              </a>
+              <CvLink label="Download CV" />
+            </div>
+            <p className="visually-hidden" aria-live="polite">
+              {copied ? "Email address copied" : ""}
             </p>
-          )}
-        </div>
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? "email-err" : undefined}
-          />
-          {errors.email && (
-            <p id="email-err" className="field-error">
-              {errors.email}
-            </p>
-          )}
-        </div>
-        <div className="field">
-          <label htmlFor="message">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            rows={6}
-            aria-invalid={!!errors.message}
-            aria-describedby={errors.message ? "message-err" : undefined}
-          />
-          {errors.message && (
-            <p id="message-err" className="field-error">
-              {errors.message}
-            </p>
-          )}
-        </div>
-        <button type="submit" className="btn btn-solid">
-          Write the email
-        </button>
-        <p className="form-status" role="status">
-          {sent ? `Your email app should have opened. If it didn't, write to ${SITE.email} directly.` : ""}
-        </p>
-      </form>
-    </section>
+          </div>
+        </header>
+
+        <form className="contact2-form" noValidate onSubmit={submit} aria-describedby="form-note">
+          <span className="tape" aria-hidden="true" />
+          <p id="form-note" className="mono contact2-label">
+            Sending opens your email app with the message ready to go.
+          </p>
+          <div className="nb-field">
+            <label htmlFor="name">Name</label>
+            <input id="name" name="name" autoComplete="name" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-err" : undefined} />
+            {errors.name && (
+              <p id="name-err" className="nb-error">
+                {errors.name}
+              </p>
+            )}
+          </div>
+          <div className="nb-field">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "email-err" : undefined}
+            />
+            {errors.email && (
+              <p id="email-err" className="nb-error">
+                {errors.email}
+              </p>
+            )}
+          </div>
+          <div className="nb-field">
+            <label htmlFor="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows={4}
+              aria-invalid={!!errors.message}
+              aria-describedby={errors.message ? "message-err" : undefined}
+            />
+            {errors.message && (
+              <p id="message-err" className="nb-error">
+                {errors.message}
+              </p>
+            )}
+          </div>
+          <button type="submit" className="contact2-send">
+            Write the email
+          </button>
+          <p className="contact2-status" role="status">
+            {sent ? `Your email app should have opened. If it didn't, write to ${SITE.email} directly.` : ""}
+          </p>
+        </form>
+      </div>
+    </div>
   );
 }
