@@ -1,6 +1,6 @@
 /**
  * The full work history for /timeline, newest first. Bullets are the CV's wording
- * (one CV typo fixed: "85% held" -> "held 85%"); she/her/them uses the site's own line.
+ * (the CV now reads "held 85%" too); she/her/them uses the site's own line.
  */
 export type Category = "marketing" | "community" | "physio" | "education";
 
@@ -33,7 +33,7 @@ export const TIMELINE: Entry[] = [
   { year: "2026", title: "Social Media Manager", org: "cyclewithTayo · Toronto, remote contract", when: "Jun 2026 to Aug 2026", cats: ["marketing"], points: [
     "Developed and executed the social media strategy supporting the Friends for Life Bike Rally fundraising campaign, combining advocacy, educational storytelling, and fundraising content.",
     "Increased Instagram impressions from under 5,000 to over 35,000 within seven weeks of taking over account management.",
-    "Raised CAD 2,513.90 against a CAD 2,500 fundraising target through community-focused content and campaign promotion.",
+    "Raised CA$2,513.90 against a CA$2,500 target, up from about CA$500 in four weeks, through community-focused content and campaign promotion.",
     "Grew the Instagram account by 84 followers while developing a multi-format content strategy across reels, carousels and stories, building a consistent voice around cycling, HIV advocacy and community impact." ] },
   { year: "2026", title: "Bachelor of Physiotherapy", org: "University of Lagos", when: "2026", cats: ["physio", "education"], points: [] },
   { year: "2025", title: "Lead Community Manager", org: "HerPhysio Movement · Lagos", when: "May 2025 to Nov 2025", cats: ["community", "physio"], points: [
