@@ -255,9 +255,6 @@ body.is-home {
   [data-palette="shirt"] .home {
     padding: 0 16px 12px;
   }
-  .home .topbar {
-    padding-top: 14px;
-  }
   .home-middle {
     grid-template-columns: 1fr;
     align-content: start;

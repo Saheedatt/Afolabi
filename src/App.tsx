@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { TopBar } from "./components/TopBar";
+import { useRuledText } from "./lib/ruled";
 import { Home } from "./pages/Home";
 import { Work } from "./pages/Work";
 import { Role } from "./pages/Role";
@@ -40,6 +41,7 @@ function FocusManager() {
 
 export default function App() {
   const location = useLocation();
+  useRuledText();
   // home and Bits & pieces are one-screen pages that draw their own top bar
   const home = location.pathname === "/" || location.pathname === "/bits";
   return (

@@ -168,6 +168,11 @@ body {
   gap: clamp(18px, 2.4vw, 34px);
   padding-top: 8px;
 }
+/* the menu words sit on a notebook rule (rules every 34px, 30px on phones), 3px above the line */
+.topbar-nav {
+  position: relative;
+  top: 10px;
+}
 .topbar-nav ul {
   display: flex;
   gap: clamp(16px, 2.2vw, 30px);
@@ -294,6 +299,7 @@ body {
   }
   .topbar-nav {
     grid-area: nav;
+    top: -12px;
   }
   .topbar-nav ul {
     justify-content: space-between;
@@ -339,5 +345,17 @@ body {
   .topbar-nav a,
   .topbar-nav a::after {
     transition: none;
+  }
+}
+
+/* On paper, text written straight onto the page follows the notebook rules (see lib/ruled.ts):
+   the line height matches the rule spacing, and --rule-nudge lands the first line on a rule. */
+[data-palette="marker"] :is(.about-copy p, .phead-intro, .nb-p, .nb-lead, .spread-notes > p, .entry-line, .role-row p, .sec-sub) {
+  line-height: 34px;
+  padding-top: var(--rule-nudge, 0px);
+}
+@media (max-width: 820px) {
+  [data-palette="marker"] :is(.about-copy p, .phead-intro, .nb-p, .nb-lead, .spread-notes > p, .entry-line, .role-row p, .sec-sub) {
+    line-height: 30px;
   }
 }
