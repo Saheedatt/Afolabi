@@ -4,6 +4,38 @@ import { TopBar } from "../components/TopBar";
 import { BITS, BITS_DIR, type Bit } from "../content/bits";
 
 const phone = () => matchMedia("(max-width: 820px)").matches;
+
+/** Moves pieces from the end of the longer column to the shorter one while that evens them out. */
+function evenEnds(cols: number[][], h: (i: number) => number) {
+  const sum = (c: number[]) => c.reduce((t, i) => t + h(i), 0);
+  for (let guard = 0; guard < 8; guard++) {
+    const [a, b] = sum(cols[0]) >= sum(cols[1]) ? [0, 1] : [1, 0];
+    const last = cols[a][cols[a].length - 1];
+    const gap = sum(cols[a]) - sum(cols[b]);
+    if (last === undefined || h(last) >= gap) break; // moving it would only flip the imbalance
+    cols[a].pop();
+    cols[b].push(last);
+  }
+  return cols;
+}
+
+/**
+ * Phones show two columns. Each piece goes to whichever column is shorter so far, using its
+ * shape and caption length, so neither side runs empty. (Built here rather than with CSS columns,
+ * which Safari lays out badly for things that slide in.)
+ */
+const PHONE_COLUMNS: number[][] = (() => {
+  const cols: number[][] = [[], []];
+  const height = [0, 0];
+  BITS.forEach((b, i) => {
+    const captionLines = Math.ceil(b.caption.length / 22);
+    const h = b.ratio + 0.12 * captionLines + 0.25; // in column widths: picture, caption, card padding and gap
+    const c = height[0] <= height[1] ? 0 : 1;
+    cols[c].push(i);
+    height[c] += h;
+  });
+  return evenEnds(cols, (i) => BITS[i].ratio + 0.12 * Math.ceil(BITS[i].caption.length / 22) + 0.25);
+})();
 const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
@@ -15,6 +47,31 @@ export function Bits() {
   const pile = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState<Bit | null>(null);
+  const [columns, setColumns] = useState(PHONE_COLUMNS);
+
+  // phones: once the pictures have loaded, rebalance the two columns using their real heights
+  useEffect(() => {
+    const root = pile.current;
+    if (!root || !phone()) return;
+    let cancelled = false;
+    const imgs = [...root.querySelectorAll("img")];
+    Promise.all(imgs.map((img) => (img.complete ? Promise.resolve() : img.decode().catch(() => undefined)))).then(() => {
+      if (cancelled) return;
+      const heights = new Map<number, number>();
+      root.querySelectorAll<HTMLElement>(".bit-item").forEach((el) => heights.set(Number(el.dataset.i), el.offsetHeight + 18));
+      const cols: number[][] = [[], []];
+      const total = [0, 0];
+      BITS.forEach((_, i) => {
+        const c = total[0] <= total[1] ? 0 : 1;
+        cols[c].push(i);
+        total[c] += heights.get(i) ?? 0;
+      });
+      setColumns(evenEnds(cols, (i) => heights.get(i) ?? 0));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // the board fills one screen on laptops
   useEffect(() => {
@@ -27,8 +84,8 @@ export function Bits() {
     const root = pile.current;
     if (!root || phone()) return;
     const items = [...root.querySelectorAll<HTMLElement>(".bit-item")];
-    items.forEach((el, n) => {
-      const b = BITS[n];
+    items.forEach((el) => {
+      const b = BITS[Number(el.dataset.i)];
       el.style.left = `${b.x}%`;
       el.style.top = `${b.y}%`;
       if (still()) return;
@@ -42,9 +99,9 @@ export function Bits() {
     });
     void root.offsetWidth; // commit the off-screen starting places before animating
     window.setTimeout(() =>
-      items.forEach((el, n) => {
+      items.forEach((el) => {
         el.style.transition = "";
-        el.style.transitionDelay = `${n * 38}ms`;
+        el.style.transitionDelay = `${Number(el.dataset.i) * 38}ms`;
         el.style.transform = "";
       }),
     30);
@@ -122,9 +179,14 @@ export function Bits() {
           </button>
         </div>
         <div ref={pile} className="bits-pile">
-          {BITS.map((b, i) => (
+          {columns.map((col, c) => (
+            <div key={c} className="bits-col">
+              {col.map((i) => {
+                const b = BITS[i];
+                return (
             <figure
               key={b.src}
+              data-i={i}
               className={`bit-item is-${b.kind}`}
               role="button"
               tabIndex={0}
@@ -135,7 +197,7 @@ export function Bits() {
                   top: `${b.y}%`,
                   width: `${b.w}vw`,
                   "--tilt": `${b.tilt}deg`,
-                  "--from-x": i % 2 ? "40px" : "-40px",
+                  "--from-x": c ? "40px" : "-40px",
                 } as CSSProperties
               }
               onPointerDown={onPointerDown}
@@ -155,6 +217,9 @@ export function Bits() {
                 <figcaption>{b.caption}</figcaption>
               </div>
             </figure>
+                );
+              })}
+            </div>
           ))}
         </div>
       </div>

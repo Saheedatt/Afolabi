@@ -71,6 +71,10 @@ body.is-board {
   color: var(--on-h);
 }
 
+/* on laptops the two phone columns don't exist as boxes: every piece is placed on the board */
+.bits-col {
+  display: contents;
+}
 .bit-item {
   position: absolute;
   z-index: 2;
@@ -225,8 +229,14 @@ body.is-board {
     display: inline;
   }
   .bits-pile {
-    columns: 2;
-    column-gap: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .bits-col {
+    display: block;
+    flex: 1 1 0;
+    min-width: 0;
   }
   .bit-item {
     position: relative;
