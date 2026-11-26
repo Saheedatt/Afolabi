@@ -7,11 +7,10 @@ import { TopBar } from "../components/TopBar";
 import { CvLink } from "../components/CvLink";
 import { ROLES, type RoleSlug } from "../content/roles";
 import { SITE } from "../content/site";
+import { INTRO } from "../content/home";
 
 const TITLE_START = "I build audiences ";
 const TITLE_MARK = "from zero.";
-const INTRO =
-  "I started out trying to sell clothes on Instagram. Since then, I've found myself asking the same questions across different projects: what isn't working, what are we missing, and how do we get people to care enough to act?";
 
 /** Where each role label sits around the photo on a laptop, and the hand-drawn arrow pointing at it. */
 const PLACES: Record<RoleSlug, { pos: CSSProperties; arrow: { w: number; h: number; left: number | string; top: number; d: string } }> = {
