@@ -13,15 +13,6 @@ body.is-home {
 [data-palette="shirt"] .home {
   padding-left: clamp(16px, 4vw, 56px);
 }
-.home .topbar-nav .hw {
-  height: 27px;
-}
-.home .topbar-nav .hw-physio {
-  height: 31px;
-}
-.home .topbar-nav .hw-contact {
-  height: 23px;
-}
 
 .home-middle {
   display: grid;
@@ -34,10 +25,18 @@ body.is-home {
 
 /* hello */
 .home-hi {
-  width: clamp(200px, 19vw, 300px);
-  margin-bottom: 16px;
-  transform: rotate(-3deg);
-  transform-origin: left bottom;
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin: 0 0 18px;
+  font-size: clamp(30px, 2.8vw, 44px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.home-hi .hw {
+  height: clamp(52px, 5vw, 80px);
+  transform: rotate(-4deg);
 }
 .home-hello h1 {
   margin: 0;
@@ -259,15 +258,6 @@ body.is-home {
   .home .topbar {
     padding-top: 14px;
   }
-  .home .topbar-nav .hw {
-    height: 18px;
-  }
-  .home .topbar-nav .hw-physio {
-    height: 21px;
-  }
-  .home .topbar-nav .hw-contact {
-    height: 15px;
-  }
   .home-middle {
     grid-template-columns: 1fr;
     align-content: start;
@@ -275,8 +265,11 @@ body.is-home {
     padding-top: 22px;
   }
   .home-hi {
-    width: 150px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    font-size: 26px;
+  }
+  .home-hi .hw {
+    height: 46px;
   }
   .home-hello h1 {
     font-size: 36px;

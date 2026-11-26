@@ -179,6 +179,11 @@ body {
 .topbar-nav a {
   position: relative;
   display: block;
+  padding: 2px 2px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
   transition: transform 180ms;
 }
 .topbar-nav a:hover {
@@ -204,15 +209,6 @@ body {
 }
 [data-palette="shirt"] .topbar-nav a::after {
   background: rgba(255, 255, 255, 0.28);
-}
-.topbar-nav .hw {
-  height: 26px;
-}
-.topbar-nav .hw-physio {
-  height: 30px;
-}
-.topbar-nav .hw-contact {
-  height: 22px;
 }
 
 .mode {
@@ -333,17 +329,9 @@ body {
     clip-path: inset(50%);
     white-space: nowrap;
   }
-  .topbar-nav .hw {
-    height: 18px;
-  }
   .topbar-nav a {
     padding: 6px 2px;
-  }
-  .topbar-nav .hw-physio {
-    height: 21px;
-  }
-  .topbar-nav .hw-contact {
-    height: 15px;
+    font-size: 16px;
   }
 }
 

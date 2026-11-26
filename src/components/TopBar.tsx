@@ -1,13 +1,13 @@
 import { Link, NavLink } from "react-router";
-import { Hand, type HandWord } from "./Hand";
+import { Hand } from "./Hand";
 import { setPalette, usePalette } from "../lib/palette";
 
 // Physio isn't in the menu: the site leads with marketing. The Physio page is reached from About
 // ("I'm also a physiotherapist") and from HerPhysio on the Community role page.
-const LINKS: { to: string; word: HandWord; label: string }[] = [
-  { to: "/work", word: "work", label: "Work" },
-  { to: "/about", word: "about", label: "About" },
-  { to: "/contact", word: "contact", label: "Contact" },
+const LINKS = [
+  { to: "/work", label: "Work" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export function ModeToggle() {
@@ -26,7 +26,7 @@ export function ModeToggle() {
   );
 }
 
-/** Handwritten name, handwritten menu and the Paper/Blue switch. Used on every page. */
+/** Handwritten name, the menu and the Paper/Blue switch. Used on every page. */
 export function TopBar() {
   return (
     <header className="topbar">
@@ -38,9 +38,7 @@ export function TopBar() {
           <ul>
             {LINKS.map((l) => (
               <li key={l.to}>
-                <NavLink to={l.to} aria-label={l.label}>
-                  <Hand word={l.word} />
-                </NavLink>
+                <NavLink to={l.to}>{l.label}</NavLink>
               </li>
             ))}
           </ul>

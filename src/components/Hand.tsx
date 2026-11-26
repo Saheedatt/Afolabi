@@ -8,6 +8,7 @@ const HANDS = {
   about: [251, 116],
   contact: [425, 92],
   "hi-sah": [585, 146],
+  hi: [101, 122],
 } as const;
 
 export type HandWord = keyof typeof HANDS;
