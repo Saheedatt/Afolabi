@@ -3,7 +3,7 @@ import type { Project } from "../types";
 export const cyclewithtayo: Project = {
   slug: "cyclewithtayo",
   title: "cyclewithTayo",
-  summary: "Instagram for a cyclist raising money on a 600km charity ride, from about CA$500 raised to past the goal.",
+  summary: "Instagram for a cyclist raising money on a 600km charity ride, from about CA$500 raised to past the goal in four weeks.",
   intro:
     "Tayo rode 600km from Toronto to Montreal in the 2026 Friends for Life Bike Rally to raise money for the Toronto People With AIDS Foundation. While he trained, I managed his social media and built a campaign that gave people reasons to follow the ride and donate.",
   categories: ["Social Media", "Content Strategy", "Campaigns"],
@@ -18,7 +18,7 @@ export const cyclewithtayo: Project = {
     ratio: "portrait",
   },
   coverTone: "lime",
-  headlineMetric: { value: "CA$2,513.90", label: "raised, past the CA$2,500 goal", status: "verified" },
+  headlineMetric: { value: "CA$2,513.90", label: "raised, past the CA$2,500 goal", note: "From about CA$500 in four weeks", status: "verified" },
   hero: {
     kind: "image",
     image: {
@@ -45,6 +45,7 @@ export const cyclewithtayo: Project = {
           type: "compare",
           before: { label: "When I took over", value: "~CA$500" },
           after: { label: "At the finish", value: "CA$2,513.90" },
+          note: "Four weeks from start to finish",
         },
       ],
     },
@@ -175,7 +176,7 @@ export const cyclewithtayo: Project = {
         {
           type: "metrics",
           items: [
-            { value: "CA$2,513.90", label: "Raised against a CA$2,500 goal.", status: "verified" },
+            { value: "CA$2,513.90", label: "Raised against a CA$2,500 goal, up from about CA$500 in four weeks.", status: "verified" },
             { value: "35K+", label: "Instagram impressions within seven weeks, up from fewer than 5,000.", status: "verified" },
             { value: "+84", label: "Followers gained, from an initial 183.", status: "verified" },
           ],
