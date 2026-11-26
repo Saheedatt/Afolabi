@@ -193,19 +193,6 @@ export const cyclewithtayo: Project = {
       ],
     },
     {
-      id: "reflection",
-      title: "Reflection",
-      blocks: [
-        {
-          type: "text",
-          body: [
-            "This campaign reminded me that sometimes the strongest direction isn't the one you start with. Tayo's feedback and his experience at the previous rally gave us a story that was more meaningful than simply documenting another ride.",
-            "It also showed me how much the work depends on knowing the person behind the campaign. My job was to say what Tayo cared about as clearly as I could, with the material we had, and give every post a job. Swapping his story for a marketing narrative of my own would have lost the thing that worked.",
-          ],
-        },
-      ],
-    },
-    {
       id: "links",
       title: "See it live",
       blocks: [
